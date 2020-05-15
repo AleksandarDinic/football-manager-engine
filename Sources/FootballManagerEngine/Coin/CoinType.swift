@@ -12,7 +12,7 @@ import Foundation
 /// and checking which side is showing when it lands, in order to choose between two
 /// alternatives, sometimes used to resolve a dispute between two parties. 
 /// https://en.wikipedia.org/wiki/Coin_flipping
-protocol CoinType {
+public protocol CoinType {
 
     associatedtype CoinSide: Equatable
 
@@ -23,7 +23,7 @@ protocol CoinType {
 
 extension CoinType {
 
-    func guessTossing(_ side: CoinSide, desire: Bool = Bool.random()) -> Bool {
+    public func guessTossing(_ side: CoinSide, desire: Bool = Bool.random()) -> Bool {
         desire ? true : side == toss(desire: desire)
     }
 

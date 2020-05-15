@@ -11,19 +11,19 @@ import Foundation
 /// A coin is a small, flat, (usually, depending on the country or value) round piece of metal
 /// or plastic used primarily as a medium of exchange or legal tender. 
 /// https://en.wikipedia.org/wiki/Coin
-struct Coin<T: CoinType> {
+public struct Coin<T: CoinType> {
 
     private var coinType: T
 
-    init(_ coinType: T) {
+    public init(_ coinType: T) {
         self.coinType = coinType
     }
 
-    func toss(desire: Bool = Bool.random()) -> T.CoinSide {
+    public func toss(desire: Bool = Bool.random()) -> T.CoinSide {
         coinType.toss(desire: desire)
     }
 
-    func guessTossing(_ side: T.CoinSide, desire: Bool = Bool.random()) -> Bool {
+    public func guessTossing(_ side: T.CoinSide, desire: Bool = Bool.random()) -> Bool {
         coinType.guessTossing(side, desire: desire)
     }
 

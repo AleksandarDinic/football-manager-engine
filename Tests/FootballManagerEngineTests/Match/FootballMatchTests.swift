@@ -11,17 +11,17 @@ import XCTest
 
 final class FootballMatchTests: XCTestCase {
 
-    func testExample() {
+    func testCoinTossWinner() {
         // Given
-        let sut = FootballMatch(home: "Home", away: "Away")
+        var sut = FootballMatch(home: "Home", away: "Away", coin: Coin(HeadTailCoin()))
 
-        var endEvent: MatchEvent?
+        var coinTossWinner: CoinTossWinner?
         let promise = expectation(description: #function)
 
         // When
-        sut.start { event in
-            if case MatchEvent.end = event {
-                endEvent = event
+        sut.start(homeGuessCoinSide: .head) { record in
+            if let winner = record as? CoinTossWinner {
+                coinTossWinner = winner
                 promise.fulfill()
             }
         }
@@ -29,7 +29,28 @@ final class FootballMatchTests: XCTestCase {
         // Then
         waitForExpectations(timeout: 5)
 
-        XCTAssertNotNil(endEvent)
+        XCTAssertNotNil(coinTossWinner)
+    }
+
+    func testFullTime() {
+        // Given
+        var sut = FootballMatch(home: "Home", away: "Away", coin: Coin(HeadTailCoin()))
+
+        var fullTime: FullTime?
+        let promise = expectation(description: #function)
+
+        // When
+        sut.start { record in
+            if let time = record as? FullTime {
+                fullTime = time
+                promise.fulfill()
+            }
+        }
+
+        // Then
+        waitForExpectations(timeout: 5)
+
+        XCTAssertNotNil(fullTime)
     }
 
 }

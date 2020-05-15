@@ -8,14 +8,16 @@
 
 import Foundation
 
-struct HeadTailCoin: CoinType {
+public struct HeadTailCoin: CoinType {
 
-    enum CoinSide {
+    public enum CoinSide {
         case head
         case tail
     }
+    
+    public init() {}
 
-    func toss(desire: Bool = Bool.random()) -> CoinSide {
+    public func toss(desire: Bool = Bool.random()) -> CoinSide {
         desire ? .head : .tail
     }
 

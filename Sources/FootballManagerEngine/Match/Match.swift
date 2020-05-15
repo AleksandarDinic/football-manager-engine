@@ -13,6 +13,6 @@ public protocol Match {
     var home: String { get }
     var away: String { get }
 
-    func start(onRecord record: @escaping (MatchEvent) -> Void)
+    mutating func start(onRecord record: @escaping (Recordable) -> Void)
 
 }
