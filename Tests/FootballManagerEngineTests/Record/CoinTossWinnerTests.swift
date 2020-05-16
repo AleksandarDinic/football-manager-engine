@@ -1,5 +1,5 @@
 //
-//  CoinTossWinnerTests.swift
+//  CoinTossTests.swift
 //  FootballManagerEngineTests
 //
 //  Created by Aleksandar Dinic on 15/05/2020.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import FootballManagerEngine
 
-final class CoinTossWinnerTests: XCTestCase {
+final class CoinTossTests: XCTestCase {
 
     func testRecord() {
         // Given
@@ -17,7 +17,7 @@ final class CoinTossWinnerTests: XCTestCase {
         let home = "Home"
         let recordType = RecordType.coinTossWinner
         let givenRecord = "\(time)': \(recordType) \(home)"
-        let sut = CoinTossWinner(time: time, winner: home)
+        let sut = CoinToss(time: time, winner: home)
 
         // When
         let record = sut.record

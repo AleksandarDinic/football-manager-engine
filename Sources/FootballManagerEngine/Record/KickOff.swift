@@ -13,31 +13,23 @@ import Foundation
 /// of the Game.
 ///
 /// https://en.wikipedia.org/wiki/Kick-off_(association_football)
-public struct KickOff: Recordable {
+struct KickOff: Recordable {
 
-    public enum KickOffType {
+    enum KickOffType {
         case initial
         case secondHalf
         case afterGoalScored
     }
 
-    public let time: Int
-    public var record: String {
+    let time: Int
+    var record: String {
         "\(time)': \(recordType) \(kickOffType) - \(team)"
     }
-    public var recordType: RecordType {
+    var recordType: RecordType {
         .kickOff
     }
-
-    private let team: String
-    private let kickOffType: KickOffType
-    private let matchResult: MatchResult
-
-    init(time: Int, team: String, kickOffType: KickOffType, matchResult: MatchResult) {
-        self.time = time
-        self.team = team
-        self.kickOffType = kickOffType
-        self.matchResult = matchResult
-    }
+    
+    let kickOffType: KickOffType
+    let team: String
 
 }

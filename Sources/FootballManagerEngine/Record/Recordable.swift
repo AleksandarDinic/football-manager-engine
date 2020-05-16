@@ -15,3 +15,11 @@ public protocol Recordable {
     var recordType: RecordType { get }
 
 }
+
+extension Recordable {
+
+    var record: String {
+        "\(time)': \(recordType)"
+    }
+
+}

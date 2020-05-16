@@ -1,5 +1,5 @@
 //
-//  CoinToss.swift
+//  FullTime.swift
 //  FootballManagerEngine
 //
 //  Created by Aleksandar Dinic on 15/05/2020.
@@ -8,16 +8,11 @@
 
 import Foundation
 
-struct CoinToss: Recordable {
+struct FullTime: Recordable {
 
     var time: Int
-    var record: String {
-        "\(time)': \(recordType) \(winner)"
-    }
     var recordType: RecordType {
-        .coinTossWinner
+        .fullTime
     }
-
-    var winner: String
 
 }

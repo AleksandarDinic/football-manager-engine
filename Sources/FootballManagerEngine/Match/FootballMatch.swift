@@ -17,10 +17,17 @@ public struct FootballMatch<CType: CoinType>: Match {
     private var awayGoals: Int
 
     private let coin: Coin<CType>
-    private var matchResult: MatchResult
     private var currentTime: Int
 
     private lazy var coinTossWinner: String = home
+
+    private var matchResult: MatchResult {
+        MatchResult(
+            time: currentTime,
+            home: home, homeGoals: homeGoals,
+            away: away, awayGoals: awayGoals
+        )
+    }
 
     public init(
         home: String,
@@ -36,11 +43,6 @@ public struct FootballMatch<CType: CoinType>: Match {
         self.homeGoals = homeGoals
         self.awayGoals = awayGoals
         self.currentTime = currentTime
-        self.matchResult = MatchResult(
-            time: currentTime,
-            home: home, homeGoals: homeGoals,
-            away: away, awayGoals: awayGoals
-        )
     }
 
     public mutating func start(
@@ -48,43 +50,52 @@ public struct FootballMatch<CType: CoinType>: Match {
         onRecord record: @escaping (Recordable) -> Void
     ) {
         coinTossWinner = coin.guessTossing(homeGuessCoinSide) ? home : away
-        record(CoinTossWinner(time: 0, winner: coinTossWinner))
+        record(CoinToss(time: currentTime, winner: coinTossWinner))
         start(onRecord: record)
     }
 
     public mutating func start(onRecord record: @escaping (Recordable) -> Void) {
-        matchResult = getMatchResult()
-        record(matchResult)
-        record(KickOff(time: currentTime, team: coinTossWinner, kickOffType: .initial, matchResult: matchResult))
+        startTime(onRecord: record)
 
         homeGoals = Int.random(in: 0...3)
         awayGoals = Int.random(in: 0...3)
 
         currentTime = 45
-        matchResult = getMatchResult()
-        record(matchResult)
-        record(HalfTime(time: currentTime, matchResult: matchResult))
-        record(KickOff(time: currentTime, team: toggleCoinTossWinner(), kickOffType: .secondHalf, matchResult: matchResult))
+
+        halfTime(onRecord: record)
 
         homeGoals += Int.random(in: 0...3)
         awayGoals += Int.random(in: 0...3)
 
         currentTime = 90
-        matchResult = getMatchResult()
+
+        fullTime(onRecord: record)
+    }
+
+    private func matchResult(onRecord record: @escaping (Recordable) -> Void) {
         record(matchResult)
-        record(FullTime(currentTime, matchResult: matchResult))
+    }
+
+    private mutating func startTime(onRecord record: @escaping (Recordable) -> Void) {
+        record(StartTime(time: currentTime))
+        matchResult(onRecord: record)
+        record(KickOff(time: currentTime, kickOffType: .initial, team: coinTossWinner))
+    }
+
+    private mutating func halfTime(onRecord record: @escaping (Recordable) -> Void) {
+        record(HalfTime(time: currentTime))
+        matchResult(onRecord: record)
+        record(KickOff(time: currentTime, kickOffType: .secondHalf, team: toggleCoinTossWinner()))
     }
 
     private mutating func toggleCoinTossWinner() -> String {
         coinTossWinner != home ? home : away
     }
 
-    private func getMatchResult() -> MatchResult {
-        MatchResult(
-            time: currentTime,
-            home: home, homeGoals: homeGoals,
-            away: away, awayGoals: awayGoals
-        )
+    private func fullTime(onRecord record: @escaping (Recordable) -> Void) {
+        record(FullTime(time: currentTime))
+        matchResult(onRecord: record)
+        record(MatchOutcome(time: currentTime, matchResult: matchResult))
     }
 
 }

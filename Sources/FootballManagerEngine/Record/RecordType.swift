@@ -8,12 +8,18 @@
 
 import Foundation
 
-public enum RecordType {
+public enum RecordType: String, CustomStringConvertible {
 
-    case coinTossWinner
-    case kickOff
-    case matchResult
-    case halfTime
-    case fullTime
+    case coinToss       = "CT"
+    case startTime      = "ST"
+    case kickOff        = "KO"
+    case matchResult    = "MR"
+    case halfTime       = "HT"
+    case fullTime       = "FT"
+    case matchOutcome   = "MO"
+
+    public var description: String {
+        rawValue
+    }
 
 }

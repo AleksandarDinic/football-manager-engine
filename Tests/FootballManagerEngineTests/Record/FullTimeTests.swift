@@ -14,21 +14,9 @@ final class FullTimeTests: XCTestCase {
     func testRecord() {
         // Given
         let time = 0
-        let home = "Home"
-        let homeGoals = 0
-        let away = "Away"
-        let awayGoals = 0
-        let matchResult = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
         let recordType = RecordType.fullTime
-        let matchOutcome = MatchOutcome(matchResult: matchResult)
-        let givenRecord = "\(time)': \(recordType) \(matchOutcome)"
-        let sut = FullTime(time: time, matchOutcome: matchOutcome)
+        let givenRecord = "\(time)': \(recordType)"
+        let sut = FullTime(time: time)
 
         // When
         let record = sut.record

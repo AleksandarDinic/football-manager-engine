@@ -15,7 +15,7 @@ struct CoinToss: Recordable {
         "\(time)': \(recordType) \(winner)"
     }
     var recordType: RecordType {
-        .coinTossWinner
+        .coinToss
     }
 
     var winner: String

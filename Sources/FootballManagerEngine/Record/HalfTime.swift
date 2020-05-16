@@ -8,21 +8,11 @@
 
 import Foundation
 
-public struct HalfTime: Recordable {
+struct HalfTime: Recordable {
 
-    public var time: Int
-    public var record: String {
-        "\(time)': \(recordType)"
-    }
-    public var recordType: RecordType {
+    var time: Int
+    var recordType: RecordType {
         .halfTime
-    }
-
-    private var matchResult: MatchResult
-
-    init(time: Int, matchResult: MatchResult) {
-        self.time = time
-        self.matchResult = matchResult
     }
 
 }
