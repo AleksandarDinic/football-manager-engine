@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CoinTossGame {
+public protocol CoinTossGame {
 
     associatedtype Stats: TeamStats
 
@@ -27,7 +27,7 @@ protocol CoinTossGame {
 
 extension CoinTossGame {
 
-    mutating func playCoinToss(
+    mutating public func playCoinToss(
         homeGuess coinSide: CoinSide,
         homeDecision: CoinGameDecision,
         awayDecision: CoinGameDecision
