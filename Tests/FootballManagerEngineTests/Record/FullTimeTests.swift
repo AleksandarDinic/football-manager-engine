@@ -13,10 +13,10 @@ final class FullTimeTests: XCTestCase {
 
     func testRecord() {
         // Given
-        let time = 0
+        let time = FootballMatchTime()
         let recordType = RecordType.fullTime
         let givenRecord = "\(time)': \(recordType)"
-        let sut = FullTime(time: time)
+        let sut = FullTime(at: time)
 
         // When
         let record = sut.record

@@ -11,41 +11,31 @@ import XCTest
 
 final class MatchOutcomeTests: XCTestCase {
 
-    var home: String!
-    var homeGoals: Int!
-    var away: String!
-    var awayGoals: Int!
+    var homeStats: FootballTeamStats!
+    var awayStats: FootballTeamStats!
+    var time: FootballMatchTime!
 
     override func setUp() {
         super.setUp()
-        home = "Home"
-        homeGoals = 0
-        away = "Away"
-        awayGoals = 0
+        homeStats = FootballTeamStats(team: FootballTeam(name: "Home"))
+        awayStats = FootballTeamStats(team: FootballTeam(name: "Away"))
+        time = FootballMatchTime()
     }
 
     override func tearDown() {
-        home = nil
-        homeGoals = nil
-        away = nil
-        awayGoals = nil
+        homeStats = nil
+        awayStats = nil
+        time = nil
         super.tearDown()
     }
 
     func testRecord() {
         // Given
-        let time = 0
-        let matchResult = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
+        let time = FootballMatchTime()
         let recordType = RecordType.matchOutcome
         let matchOutcomeType = MatchOutcome.MatchOutcomeType.drawn
         let givenRecord = "\(time)': \(recordType) \(matchOutcomeType)"
-        let sut = MatchOutcome(time: time, matchResult: matchResult)
+        let sut = MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When
         let record = sut.record
@@ -56,15 +46,7 @@ final class MatchOutcomeTests: XCTestCase {
 
     func testDrawn() {
         // Given
-        let time = 0
-        let matchResult = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
-        let matchOutcome = MatchOutcome(time: time, matchResult: matchResult)
+        let matchOutcome = MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When
         let sut = matchOutcome.matchOutcomeType
@@ -75,42 +57,26 @@ final class MatchOutcomeTests: XCTestCase {
 
     func testWinnerHome() {
         // Given
-        let time = 0
-        homeGoals = 1
-        let matchResult = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
-        let matchOutcome = MatchOutcome(time: time, matchResult: matchResult)
+        homeStats.scoreAGoal()
+        let matchOutcome = MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When
         let sut = matchOutcome.matchOutcomeType
 
         // Then
-        XCTAssertEqual(sut, .winner(home))
+        XCTAssertEqual(sut, .winner(homeStats.team))
     }
 
     func testWinnerAway() {
         // Given
-        let time = 0
-        awayGoals = 1
-        let matchResult = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
-        let matchOutcome = MatchOutcome(time: time, matchResult: matchResult)
+        awayStats.scoreAGoal()
+        let matchOutcome = MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When
         let sut = matchOutcome.matchOutcomeType
 
         // Then
-        XCTAssertEqual(sut, .winner(away))
+        XCTAssertEqual(sut, .winner(awayStats.team))
     }
 
 }

@@ -13,20 +13,12 @@ final class MatchResultTests: XCTestCase {
 
     func testRecord() {
         // Given
-        let time = 0
-        let home = "Home"
-        let homeGoals = 0
-        let away = "Away"
-        let awayGoals = 0
+        let time = FootballMatchTime()
+        let homeStats = FootballTeamStats(team: FootballTeam(name: "Home"))
+        let awayStats = FootballTeamStats(team: FootballTeam(name: "Away"))
         let recordType = RecordType.matchResult
-        let givenRecord = "\(time)': \(recordType) \(home) \(homeGoals) : \(awayGoals) \(away)"
-        let sut = MatchResult(
-            time: time,
-            home: home,
-            homeGoals: homeGoals,
-            away: away,
-            awayGoals: awayGoals
-        )
+        let givenRecord = "\(time)': \(recordType) \(homeStats.team) \(homeStats.scores) : \(awayStats.team) \(awayStats.scores)"
+        let sut = MatchResult(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When
         let record = sut.record

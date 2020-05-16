@@ -13,11 +13,11 @@ final class CoinTossTests: XCTestCase {
 
     func testRecord() {
         // Given
-        let time = 0
-        let home = "Home"
+        let time = FootballMatchTime()
+        let home = FootballTeam(name: "Home")
         let recordType = RecordType.coinToss
         let givenRecord = "\(time)': \(recordType) \(home)"
-        let sut = CoinToss(time: time, winner: home)
+        let sut = CoinToss(at: time, winner: home)
 
         // When
         let record = sut.record

@@ -13,10 +13,10 @@ final class HalfTimeTests: XCTestCase {
 
     func testRecord() {
         // Given
-        let time = 0
+        let time = FootballMatchTime()
         let recordType = RecordType.halfTime
         let givenRecord = "\(time)': \(recordType)"
-        let sut = HalfTime(time: time)
+        let sut = HalfTime(at: time)
 
         // When
         let record = sut.record

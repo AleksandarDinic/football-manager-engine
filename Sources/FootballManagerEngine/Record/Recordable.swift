@@ -10,7 +10,7 @@ import Foundation
 
 public protocol Recordable {
 
-    var time: Int { get }
+    var time: FootballMatchTime { get }
     var record: String { get }
     var recordType: RecordType { get }
 

@@ -10,17 +10,21 @@ import Foundation
 
 struct MatchResult: Recordable {
 
-    let time: Int
+    let time: FootballMatchTime
     var record: String {
-        "\(time)': \(recordType) \(home) \(homeGoals) : \(awayGoals) \(away)"
+        "\(time)': \(recordType) \(homeStats.team) \(homeStats.scores) : \(awayStats.team) \(awayStats.scores)"
     }
     var recordType: RecordType {
         .matchResult
     }
 
-    let home: String
-    let homeGoals: Int
-    let away: String
-    let awayGoals: Int
+    let homeStats: FootballTeamStats
+    let awayStats: FootballTeamStats
+
+    init(at time: FootballMatchTime, homeStats: FootballTeamStats, awayStats: FootballTeamStats) {
+        self.time = time
+        self.homeStats = homeStats
+        self.awayStats = awayStats
+    }
 
 }

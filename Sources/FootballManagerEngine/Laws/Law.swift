@@ -15,6 +15,7 @@ import Foundation
 /// referee to interpret and enforce the Laws of the Game.
 ///
 /// https://en.wikipedia.org/wiki/Laws_of_the_Game_(association_football)
+/// https://www.fifa.com/what-we-do/education-and-technical/referees/laws-of-the-game/
 protocol Law {
 
     var number: Int { get }

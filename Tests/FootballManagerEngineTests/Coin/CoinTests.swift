@@ -11,17 +11,14 @@ import XCTest
 
 final class CoinTests: XCTestCase {
 
-    private var cointType: FrontBackCoin!
-    private var sut: Coin<FrontBackCoin>!
+    private var sut: Coin!
 
     override func setUp() {
         super.setUp()
-        cointType = FrontBackCoin()
-        sut = Coin(cointType)
+        sut = Coin()
     }
 
     override func tearDown() {
-        cointType = nil
         sut = nil
         super.tearDown()
     }
@@ -33,7 +30,7 @@ final class CoinTests: XCTestCase {
         let tossedSide = sut.toss(desire: true)
 
         // Then
-        XCTAssertEqual(tossedSide, .front)
+        XCTAssertEqual(tossedSide, .head)
     }
 
     func testTossBack() throws {
@@ -43,14 +40,14 @@ final class CoinTests: XCTestCase {
         let tossedSide = sut.toss(desire: false)
 
         // Then
-        XCTAssertEqual(tossedSide, .back)
+        XCTAssertEqual(tossedSide, .tail)
     }
 
     func testGuessTossingFront() throws {
         // Given
 
         // When
-        let guess = sut.guessTossing(.front, desire: true)
+        let guess = sut.guessTossing(.head, desire: true)
 
         // Then
         XCTAssert(guess)
@@ -60,7 +57,7 @@ final class CoinTests: XCTestCase {
         // Given
 
         // When
-        let guess = sut.guessTossing(.back, desire: true)
+        let guess = sut.guessTossing(.tail, desire: true)
 
         // Then
         XCTAssert(guess)

@@ -8,94 +8,67 @@
 
 import Foundation
 
-public struct FootballMatch<CType: CoinType>: Match {
+public struct FootballMatch: Match {
 
-    public var home: String
-    public var away: String
+    public var info: FootballMatchInfo
 
-    private var homeGoals: Int
-    private var awayGoals: Int
-
-    private let coin: Coin<CType>
-    private var currentTime: Int
-
-    private lazy var coinTossWinner: String = home
-
-    private var matchResult: MatchResult {
-        MatchResult(
-            time: currentTime,
-            home: home, homeGoals: homeGoals,
-            away: away, awayGoals: awayGoals
-        )
-    }
-
-    public init(
-        home: String,
-        away: String,
-        coin: Coin<CType>,
-        homeGoals: Int = 0,
-        awayGoals: Int = 0,
-        currentTime: Int = 0
-    ) {
-        self.home = home
-        self.away = away
-        self.coin = coin
-        self.homeGoals = homeGoals
-        self.awayGoals = awayGoals
-        self.currentTime = currentTime
+    public init(info: FootballMatchInfo) {
+        self.info = info
     }
 
     public mutating func start(
-        homeGuessCoinSide: CType.CoinSide,
+        homeGuess coinSide: CoinSide,
+        homeDecision: CoinGameDecision = .kickOff,
+        awayDecision: CoinGameDecision = .kickOff,
         onRecord record: @escaping (Recordable) -> Void
     ) {
-        coinTossWinner = coin.guessTossing(homeGuessCoinSide) ? home : away
-        record(CoinToss(time: currentTime, winner: coinTossWinner))
+        info.playCoinToss(homeGuess: coinSide, homeDecision: homeDecision, awayDecision: awayDecision)
+        record(info.make(.coinToss))
         start(onRecord: record)
     }
 
     public mutating func start(onRecord record: @escaping (Recordable) -> Void) {
         startTime(onRecord: record)
 
-        homeGoals = Int.random(in: 0...3)
-        awayGoals = Int.random(in: 0...3)
+        for _ in 0...Int.random(in: 0...3) {
+            info.homeScoreAGoal()
+        }
+        for _ in 0...Int.random(in: 0...3) {
+            info.awayScoreAGoal()
+        }
 
-        currentTime = 45
+        info.setTime(at: 45)
 
         halfTime(onRecord: record)
 
-        homeGoals += Int.random(in: 0...3)
-        awayGoals += Int.random(in: 0...3)
+        for _ in 0...Int.random(in: 0...3) {
+            info.homeScoreAGoal()
+        }
+        for _ in 0...Int.random(in: 0...3) {
+            info.awayScoreAGoal()
+        }
 
-        currentTime = 90
+        info.setTime(at: 90)
 
         fullTime(onRecord: record)
     }
 
-    private func matchResult(onRecord record: @escaping (Recordable) -> Void) {
-        record(matchResult)
-    }
-
     private mutating func startTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(StartTime(time: currentTime))
-        matchResult(onRecord: record)
-        record(KickOff(time: currentTime, kickOffType: .initial, team: coinTossWinner))
+        record(info.make(.startTime))
+        record(info.make(.matchResult))
+        record(info.make(.kickOff(.initial)))
     }
 
     private mutating func halfTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(HalfTime(time: currentTime))
-        matchResult(onRecord: record)
-        record(KickOff(time: currentTime, kickOffType: .secondHalf, team: toggleCoinTossWinner()))
+        record(info.make(.halfTime))
+        record(info.make(.matchResult))
+        record(info.make(.kickOff(.secondHalf)))
     }
 
-    private mutating func toggleCoinTossWinner() -> String {
-        coinTossWinner != home ? home : away
-    }
-
-    private func fullTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(FullTime(time: currentTime))
-        matchResult(onRecord: record)
-        record(MatchOutcome(time: currentTime, matchResult: matchResult))
+    private mutating func fullTime(onRecord record: @escaping (Recordable) -> Void) {
+        record(info.make(.fullTime))
+        record(info.make(.matchResult))
+        record(info.make(.matchOutcome))
     }
 
 }

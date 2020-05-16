@@ -10,9 +10,13 @@ import Foundation
 
 struct StartTime: Recordable {
 
-    var time: Int
+    var time: FootballMatchTime
     var recordType: RecordType {
         .startTime
+    }
+
+    init(at time: FootballMatchTime) {
+        self.time = time
     }
 
 }

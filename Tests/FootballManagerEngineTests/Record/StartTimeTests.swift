@@ -13,10 +13,10 @@ final class StartTimeTests: XCTestCase {
 
     func testRecord() {
         // Given
-        let time = 0
+        let time = FootballMatchTime()
         let recordType = RecordType.startTime
         let givenRecord = "\(time)': \(recordType)"
-        let sut = StartTime(time: time)
+        let sut = StartTime(at: time)
 
         // When
         let record = sut.record

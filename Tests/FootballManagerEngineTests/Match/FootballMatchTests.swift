@@ -11,11 +11,15 @@ import XCTest
 
 final class FootballMatchTests: XCTestCase {
 
-    var sut: FootballMatch<HeadTailCoin>!
+    var sut: FootballMatch!
 
     override func setUp() {
         super.setUp()
-        sut = FootballMatch(home: "Home", away: "Away", coin: Coin(HeadTailCoin()))
+        let matchInfo = FootballMatchInfo(
+            homeStats: FootballTeamStats(team: FootballTeam(name: "Home")),
+            awayStats: FootballTeamStats(team: FootballTeam(name: "Away"))
+        )
+        sut = FootballMatch(info: matchInfo)
     }
 
     override func tearDown() {
@@ -29,7 +33,7 @@ final class FootballMatchTests: XCTestCase {
         let promise = expectation(description: #function)
 
         // When
-        sut.start(homeGuessCoinSide: .head) { record in
+        sut.start(homeGuess: .head) { record in
             if let coinTossRecord = record as? CoinToss {
                 coinToss = coinTossRecord
                 promise.fulfill()
@@ -73,7 +77,7 @@ final class FootballMatchTests: XCTestCase {
                 startTime = timeRecord
 
             } else if let kickRecord = record as? KickOff,
-                kickRecord.kickOffType == .initial,
+                kickRecord.recordType == .kickOff(.initial),
                 startTime != nil {
                 kickOff = kickRecord
 
@@ -126,7 +130,7 @@ final class FootballMatchTests: XCTestCase {
                 halfTime = timeRecord
 
             } else if let kickRecord = record as? KickOff,
-                kickRecord.kickOffType == .secondHalf,
+                kickRecord.recordType == .kickOff(.secondHalf),
                 halfTime != nil {
                 kickOff = kickRecord
 

@@ -10,7 +10,7 @@ import Foundation
 
 struct CoinToss: Recordable {
 
-    var time: Int
+    var time: FootballMatchTime
     var record: String {
         "\(time)': \(recordType) \(winner)"
     }
@@ -18,6 +18,11 @@ struct CoinToss: Recordable {
         .coinToss
     }
 
-    var winner: String
+    var winner: FootballTeam
+
+    init(at time: FootballMatchTime, winner: FootballTeam) {
+        self.time = time
+        self.winner = winner
+    }
 
 }

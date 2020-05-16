@@ -10,8 +10,9 @@ import Foundation
 
 public protocol Match {
 
-    var home: String { get }
-    var away: String { get }
+    associatedtype Info: MatchInfo
+
+    var info: Info { get }
 
     mutating func start(onRecord record: @escaping (Recordable) -> Void)
 

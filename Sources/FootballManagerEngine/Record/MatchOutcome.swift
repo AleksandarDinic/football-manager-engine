@@ -11,11 +11,11 @@ import Foundation
 struct MatchOutcome: Recordable {
 
     enum MatchOutcomeType: Equatable {
-        case winner(_ team: String)
+        case winner(_ team: FootballTeam)
         case drawn
     }
 
-    var time: Int
+    var time: FootballMatchTime
     var record: String {
         "\(time)': \(recordType) \(matchOutcomeType)"
     }
@@ -24,13 +24,13 @@ struct MatchOutcome: Recordable {
     }
     var matchOutcomeType: MatchOutcomeType
 
-    init(time: Int, matchResult: MatchResult) {
+    init(at time: FootballMatchTime, homeStats: FootballTeamStats, awayStats: FootballTeamStats) {
         self.time = time
 
-        if matchResult.homeGoals > matchResult.awayGoals {
-            matchOutcomeType = .winner(matchResult.home)
-        } else if matchResult.homeGoals < matchResult.awayGoals {
-            matchOutcomeType = .winner(matchResult.away)
+        if homeStats.scores > awayStats.scores {
+            matchOutcomeType = .winner(homeStats.team)
+        } else if homeStats.scores < awayStats.scores {
+            matchOutcomeType = .winner(awayStats.team)
         } else {
             matchOutcomeType = .drawn
         }
