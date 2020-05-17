@@ -16,8 +16,8 @@ final class FootballMatchTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let matchInfo = FootballMatchInfo(
-            homeStats: FootballTeamStats(team: FootballTeam(name: "Home")),
-            awayStats: FootballTeamStats(team: FootballTeam(name: "Away"))
+            homeStats: FootballTeamStats(team: FootballTeam(name: "Home", players: [])),
+            awayStats: FootballTeamStats(team: FootballTeam(name: "Away", players: []))
         )
         sut = FootballMatch(info: matchInfo)
     }

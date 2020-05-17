@@ -40,3 +40,14 @@ public struct FootballPlayer: Player {
     }
 
 }
+
+extension FootballPlayer {
+
+    public static func == (lhs: FootballPlayer, rhs: FootballPlayer) -> Bool {
+        lhs.firstName == rhs.firstName &&
+            lhs.lastName == rhs.lastName &&
+            lhs.age == rhs.age &&
+            lhs.shirtNumber == rhs.shirtNumber
+    }
+
+}

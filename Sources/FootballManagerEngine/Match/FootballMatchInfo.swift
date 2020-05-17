@@ -10,27 +10,34 @@ import Foundation
 
 public struct FootballMatchInfo: MatchInfo, CoinTossGame {
 
-    public let stadium: FootballStadium
-
     public var homeStats: FootballTeamStats
     public var awayStats: FootballTeamStats
 
+    public let stadium: FootballStadium
+
+    public var parts: [FootballMatchPart]
     public var time: FootballMatchTime
 
     public let coin: Coin
-    public let ball: Ball
+    public let ball: FootballBall
+    private(set) var ballInPlay: Bool = false
 
     public init(
-        stadium: FootballStadium = FootballStadium(),
         homeStats: FootballTeamStats,
         awayStats: FootballTeamStats,
+        stadium: FootballStadium = FootballStadium(),
+        parts: [FootballMatchPart] = [
+            FootballMatchPart(name: "First Half", duration: FootballMatchTime(time: 45)),
+            FootballMatchPart(name: "Second Half", duration: FootballMatchTime(time: 45))
+        ],
         time: FootballMatchTime = FootballMatchTime(),
         coin: Coin = Coin(),
-        ball: Ball = FootballBall()
+        ball: FootballBall = FootballBall()
     ) {
-        self.stadium = stadium
         self.homeStats = homeStats
         self.awayStats = awayStats
+        self.stadium = stadium
+        self.parts = parts
         self.time = time
         self.coin = coin
         self.ball = ball
@@ -84,6 +91,15 @@ extension FootballMatchInfo {
 
         case .penaltyKick:
             return PenaltyKick(at: time)
+
+        case let .offside(player):
+            return Offside(at: time, player: player)
+
+        case let.foul(player, action):
+            return Foul(at: time, player: player, disciplinaryAction: action)
+
+        case let .misconduct(player, action):
+            return Misconduct(at: time, player: player, disciplinaryAction: action)
 
         case .matchResult:
             return MatchResult(at: time, homeStats: homeStats, awayStats: awayStats)

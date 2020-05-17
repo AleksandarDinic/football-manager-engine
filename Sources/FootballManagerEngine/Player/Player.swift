@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Player {
+public protocol Player: Equatable {
 
     associatedtype Equipment: PlayersEquipment
 

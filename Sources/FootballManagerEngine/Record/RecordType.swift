@@ -19,6 +19,9 @@ public enum RecordType: Equatable, CustomStringConvertible {
     case cornerKick
     case freeKick(_ type: FreeKickType)
     case penaltyKick
+    case offside(_ player: FootballPlayer)
+    case foul(_ player: FootballPlayer, disciplinaryAction: DisciplinaryAction?)
+    case misconduct(_ player: FootballPlayer, disciplinaryAction: DisciplinaryAction?)
     case matchResult
     case halfTime
     case fullTime
@@ -26,28 +29,39 @@ public enum RecordType: Equatable, CustomStringConvertible {
 
     public var rawValue: String {
         switch self {
-        case .coinToss:     return "CT"
-        case .startTime:    return "ST"
+        case .coinToss:     return "Coin Toss"
+        case .startTime:    return "Start Time"
         case let .kickOff(kickOffType):
             switch kickOffType {
-            case .initial:          return "KO - Initial"
-            case .secondHalf:       return "KO - Second Half"
-            case .afterGoalScored:  return "KO - After Goal Scored"
+            case .initial:          return "Kick Off - Initial"
+            case .secondHalf:       return "Kick Off - Second Half"
+            case .afterGoalScored:  return "Kick Off - After Goal Scored"
             }
-        case .dropBall:     return "DB"
-        case .throwIn:      return "TI"
-        case .goalKick:     return "GK"
-        case .cornerKick:   return "CK"
+        case .dropBall:     return "Drop Ball"
+        case .throwIn:      return "Throw In"
+        case .goalKick:     return "Goal Kick"
+        case .cornerKick:   return "Corner Kick"
         case let .freeKick(freeKickType):
             switch freeKickType {
-            case .direct:   return "FK - Direct"
-            case .indirect: return "FK - Indirect"
+            case .direct:       return "Free Kick - Direct"
+            case .indirect:     return "Free Kick - Indirect"
             }
-        case .penaltyKick:  return "PK"
-        case .matchResult:  return "MR"
-        case .halfTime:     return "HT"
-        case .fullTime:     return "FT"
-        case .matchOutcome: return "MO"
+        case .penaltyKick:          return "Penalty Kick"
+        case let .offside(player):  return "Offside \(player.lastName)"
+        case let .foul(player, action):
+            guard let action = action else {
+                return "Foul \(player.lastName)"
+            }
+            return "Foul \(player.lastName) \(action)"
+        case let .misconduct(player, action):
+            guard let action = action else {
+                return "Misconduct \(player.lastName)"
+            }
+            return "Misconduct \(player.lastName) \(action)"
+        case .matchResult:          return "Match Result"
+        case .halfTime:             return "Half Time"
+        case .fullTime:             return "Full Time"
+        case .matchOutcome:         return "Match Outcome"
         }
     }
 

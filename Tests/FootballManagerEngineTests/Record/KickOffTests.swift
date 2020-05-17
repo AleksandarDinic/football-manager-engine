@@ -14,7 +14,7 @@ final class KickOffTests: XCTestCase {
     func testRecord() {
         // Given
         let time = FootballMatchTime()
-        let home = FootballTeam(name: "Home")
+        let home = FootballTeam(name: "Home", players: [])
         let recordType = RecordType.kickOff(.initial)
         let givenRecord = "\(time)': \(recordType) - \(home)"
         let sut = KickOff(at: time, type: .initial, team: home)

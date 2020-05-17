@@ -14,8 +14,8 @@ final class MatchResultTests: XCTestCase {
     func testRecord() {
         // Given
         let time = FootballMatchTime()
-        let homeStats = FootballTeamStats(team: FootballTeam(name: "Home"))
-        let awayStats = FootballTeamStats(team: FootballTeam(name: "Away"))
+        let homeStats = FootballTeamStats(team: FootballTeam(name: "Home", players: []))
+        let awayStats = FootballTeamStats(team: FootballTeam(name: "Away", players: []))
         let recordType = RecordType.matchResult
         let givenRecord = "\(time)': \(recordType) \(homeStats.team) \(homeStats.scores) : \(awayStats.team) \(awayStats.scores)"
         let sut = MatchResult(at: time, homeStats: homeStats, awayStats: awayStats)
