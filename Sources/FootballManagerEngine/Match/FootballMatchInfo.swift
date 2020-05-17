@@ -16,17 +16,20 @@ public struct FootballMatchInfo: MatchInfo, CoinTossGame {
     public var time: FootballMatchTime
 
     public let coin: Coin
+    let ball: Ball
 
     public init(
         homeStats: FootballTeamStats,
         awayStats: FootballTeamStats,
         time: FootballMatchTime = FootballMatchTime(),
-        coin: Coin = Coin()
+        coin: Coin = Coin(),
+        ball: Ball = FootballBall()
     ) {
         self.homeStats = homeStats
         self.awayStats = awayStats
         self.time = time
         self.coin = coin
+        self.ball = ball
     }
 
     mutating func homeScoreAGoal() {
