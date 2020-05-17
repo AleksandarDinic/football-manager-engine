@@ -11,9 +11,19 @@ import Foundation
 public struct FootballTeam: Team {
 
     public var name: String
+    public var players: [FootballPlayer]
 
-    public init(name: String) {
+    public init(name: String, players: [FootballPlayer]) {
         self.name = name
+        self.players = players
+    }
+
+}
+
+extension FootballTeam {
+
+    public static func == (lhs: FootballTeam, rhs: FootballTeam) -> Bool {
+        lhs.name == rhs.name
     }
 
 }

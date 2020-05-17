@@ -10,6 +10,9 @@ import Foundation
 
 public protocol Team: Equatable {
 
+    associatedtype PlayerType: Player
+
     var name: String { get }
+    var players: [PlayerType] { get set }
 
 }
