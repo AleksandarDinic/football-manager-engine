@@ -10,21 +10,25 @@ import Foundation
 
 public struct FootballMatchInfo: MatchInfo, CoinTossGame {
 
+    public let stadium: FootballStadium
+
     public var homeStats: FootballTeamStats
     public var awayStats: FootballTeamStats
 
     public var time: FootballMatchTime
 
     public let coin: Coin
-    let ball: Ball
+    public let ball: Ball
 
     public init(
+        stadium: FootballStadium = FootballStadium(),
         homeStats: FootballTeamStats,
         awayStats: FootballTeamStats,
         time: FootballMatchTime = FootballMatchTime(),
         coin: Coin = Coin(),
         ball: Ball = FootballBall()
     ) {
+        self.stadium = stadium
         self.homeStats = homeStats
         self.awayStats = awayStats
         self.time = time

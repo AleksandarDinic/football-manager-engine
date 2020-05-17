@@ -13,9 +13,13 @@ import Foundation
 ///
 /// Flagposts may be placed at each end of the halfway line, at least 1 m (1 yd) outside the
 /// touchline.
-struct Flagpost {
+public struct Flagpost {
 
     // 1.5 m (5 ft)
     let high: Double
+
+    public init(high: Double = 1.5) {
+        self.high = high
+    }
 
 }

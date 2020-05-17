@@ -8,12 +8,20 @@
 
 import Foundation
 
-struct GoalArea {
+public struct GoalArea {
 
     // 5.5 m (6 yds)
     let length: Double
 
     // 11 m (12 yds)
     let width: Double
+
+    public init(
+        length: Double = 5.5,
+        width: Double = 11
+    ) {
+        self.length = length
+        self.width = width
+    }
 
 }

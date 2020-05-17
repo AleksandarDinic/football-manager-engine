@@ -8,13 +8,32 @@
 
 import Foundation
 
-struct FootballPitch {
+public struct FootballPitch: Playfield {
 
-    let dimensions: FootballPitchDimensions
-    let goalArea: GoalArea
-    let penaltyArea: PenaltyArea
-    let cornerArea: CornerArea
-    let flagpost: Flagpost
-    let goal: Goal
+    public let dimensions: FootballPitchDimensions
+    public let surface: String?
+    public let goalArea: GoalArea
+    public let penaltyArea: PenaltyArea
+    public let cornerArea: CornerArea
+    public let flagpost: Flagpost
+    public let goal: Goal
+
+    public init(
+        dimensions: FootballPitchDimensions = FootballPitchDimensions(),
+        surface: String? = nil,
+        goalArea: GoalArea = GoalArea(),
+        penaltyArea: PenaltyArea = PenaltyArea(),
+        cornerArea: CornerArea = CornerArea(),
+        flagpost: Flagpost = Flagpost(),
+        goal: Goal = Goal()
+    ) {
+        self.dimensions = dimensions
+        self.surface = surface
+        self.goalArea = goalArea
+        self.penaltyArea = penaltyArea
+        self.cornerArea = cornerArea
+        self.flagpost = flagpost
+        self.goal = goal
+    }
 
 }

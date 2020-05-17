@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct CornerArea {
+public struct CornerArea {
 
     // 1 m (1 yd)
     let radius: Double
+
+    public init(radius: Double = 1) {
+        self.radius = radius
+    }
 
 }

@@ -8,12 +8,17 @@
 
 import Foundation
 
-struct Goal {
+public struct Goal {
 
     // 2.44 m (8 ft)
     let height: Double
 
     // 7.32 m (8 yds)
     let width: Double
+
+    public init(height: Double = 2.44, width: Double = 7.32) {
+        self.height = height
+        self.width = width
+    }
 
 }

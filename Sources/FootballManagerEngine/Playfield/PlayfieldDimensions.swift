@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PlayfieldDimensions {
+public protocol PlayfieldDimensions {
 
     var length: Double { get }
     var width: Double { get }
