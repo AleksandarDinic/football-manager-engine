@@ -22,7 +22,11 @@ public struct FootballMatch: Match {
         awayDecision: CoinGameDecision = .kickOff,
         onRecord record: @escaping (Recordable) -> Void
     ) {
-        info.playCoinToss(homeGuess: coinSide, homeDecision: homeDecision, awayDecision: awayDecision)
+        info.playCoinToss(
+            homeGuess: coinSide,
+            homeDecision: homeDecision,
+            awayDecision: awayDecision
+        )
         record(info.make(.coinToss))
         start(onRecord: record)
     }
