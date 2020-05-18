@@ -58,19 +58,19 @@ public struct FootballMatch: Match {
     }
 
     private mutating func startTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(info.make(.startTime))
+        record(info.make(.time(.startTime)))
         record(info.make(.matchResult))
         record(info.make(.kickOff(.initial)))
     }
 
     private mutating func halfTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(info.make(.halfTime))
+        record(info.make(.time(.halfTime)))
         record(info.make(.matchResult))
         record(info.make(.kickOff(.secondHalf)))
     }
 
     private mutating func fullTime(onRecord record: @escaping (Recordable) -> Void) {
-        record(info.make(.fullTime))
+        record(info.make(.time(.fullTime)))
         record(info.make(.matchResult))
         record(info.make(.matchOutcome))
     }

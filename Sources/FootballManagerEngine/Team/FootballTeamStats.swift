@@ -25,3 +25,11 @@ public struct FootballTeamStats: TeamStats {
     }
 
 }
+
+extension FootballTeamStats: CustomStringConvertible {
+
+    public var description: String {
+        "\(team) \(scores)"
+    }
+
+}

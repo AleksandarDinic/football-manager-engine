@@ -8,65 +8,44 @@
 
 import Foundation
 
-public enum RecordType: Equatable, CustomStringConvertible {
+public enum RecordType: Equatable {
 
     case coinToss
-    case startTime      
+    case time(_ type: TimeRecordType)
     case kickOff(_ type: KickOffType)
-    case dropBall
-    case throwIn
-    case goalKick
-    case cornerKick
-    case freeKick(_ type: FreeKickType)
-    case penaltyKick
-    case offside(_ player: FootballPlayer)
-    case foul(_ player: FootballPlayer, disciplinaryAction: DisciplinaryAction?)
-    case misconduct(_ player: FootballPlayer, disciplinaryAction: DisciplinaryAction?)
+    case restart(_ type: RestartType)
+    case offense(_ type: OffenseType, player: FootballPlayer, disciplinaryAction: DisciplinaryAction?)
+    case stop(_ type: StopType, player: FootballPlayer)
     case matchResult
-    case halfTime
-    case fullTime
     case matchOutcome
 
-    public var rawValue: String {
-        switch self {
-        case .coinToss:     return "Coin Toss"
-        case .startTime:    return "Start Time"
-        case let .kickOff(kickOffType):
-            switch kickOffType {
-            case .initial:          return "Kick Off - Initial"
-            case .secondHalf:       return "Kick Off - Second Half"
-            case .afterGoalScored:  return "Kick Off - After Goal Scored"
-            }
-        case .dropBall:     return "Drop Ball"
-        case .throwIn:      return "Throw In"
-        case .goalKick:     return "Goal Kick"
-        case .cornerKick:   return "Corner Kick"
-        case let .freeKick(freeKickType):
-            switch freeKickType {
-            case .direct:       return "Free Kick - Direct"
-            case .indirect:     return "Free Kick - Indirect"
-            }
-        case .penaltyKick:          return "Penalty Kick"
-        case let .offside(player):  return "Offside \(player.lastName)"
-        case let .foul(player, action):
-            guard let action = action else {
-                return "Foul \(player.lastName)"
-            }
-            return "Foul \(player.lastName) \(action)"
-        case let .misconduct(player, action):
-            guard let action = action else {
-                return "Misconduct \(player.lastName)"
-            }
-            return "Misconduct \(player.lastName) \(action)"
-        case .matchResult:          return "Match Result"
-        case .halfTime:             return "Half Time"
-        case .fullTime:             return "Full Time"
-        case .matchOutcome:         return "Match Outcome"
-        }
-    }
+}
+
+extension RecordType: CustomStringConvertible {
 
     public var description: String {
         rawValue
+    }
+
+    public var rawValue: String {
+        switch self {
+        case .coinToss:                 return "Coin Toss"
+
+        case let .time(type):           return "\(type)"
+        case let .kickOff(type):        return "Kick Off - \(type)"
+        case let .restart(type):        return "\(type)"
+
+        case let .offense(type, player, action):
+            guard let action = action else {
+                return "\(type) \(player)"
+            }
+            return "\(type) \(player) \(action)"
+
+        case let .stop(type, player):   return "\(type) \(player)"
+
+        case .matchResult:              return "Match Result"
+        case .matchOutcome:             return "Match Outcome"
+        }
     }
 
 }

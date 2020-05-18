@@ -14,9 +14,9 @@ final class FullTimeTests: XCTestCase {
     func testRecord() {
         // Given
         let time = FootballMatchTime()
-        let recordType = RecordType.fullTime
+        let recordType = RecordType.time(.fullTime)
         let givenRecord = "\(time)': \(recordType)"
-        let sut = FullTime(at: time)
+        let sut = TimeRecord(at: time, type: .fullTime)
 
         // When
         let record = sut.record

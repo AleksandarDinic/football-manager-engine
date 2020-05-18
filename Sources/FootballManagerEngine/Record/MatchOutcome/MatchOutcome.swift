@@ -10,14 +10,9 @@ import Foundation
 
 struct MatchOutcome: Recordable {
 
-    enum MatchOutcomeType: Equatable {
-        case winner(_ team: FootballTeam)
-        case drawn
-    }
-
     var time: FootballMatchTime
     var record: String {
-        "\(time)': \(recordType) \(matchOutcomeType)"
+        "\(time)': \(matchOutcomeType)"
     }
     var recordType: RecordType {
         .matchOutcome

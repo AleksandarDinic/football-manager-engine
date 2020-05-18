@@ -12,7 +12,7 @@ struct MatchResult: Recordable {
 
     let time: FootballMatchTime
     var record: String {
-        "\(time)': \(recordType) \(homeStats.team) \(homeStats.scores) : \(awayStats.team) \(awayStats.scores)"
+        "\(time)': \(recordType) \(homeStats) : \(awayStats)"
     }
     var recordType: RecordType {
         .matchResult

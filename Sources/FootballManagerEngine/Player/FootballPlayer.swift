@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FootballPlayer: Player {
+public struct FootballPlayer: Player, CustomStringConvertible {
 
     public var firstName: String
     public var lastName: String
@@ -18,6 +18,14 @@ public struct FootballPlayer: Player {
     public var nationality: String?
     public var teamCaptain: Bool
     public var equipment: FootballPlayerEquipment?
+
+    public var description: String {
+        guard teamCaptain else {
+            return "#\(shirtNumber). \(lastName)"
+        }
+
+        return "#\(shirtNumber). \(lastName) (C)"
+    }
 
     public init(
         firstName: String,

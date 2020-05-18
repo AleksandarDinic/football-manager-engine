@@ -27,3 +27,11 @@ extension FootballTeam {
     }
 
 }
+
+extension FootballTeam: CustomStringConvertible {
+
+    public var description: String {
+        "\(name)"
+    }
+
+}

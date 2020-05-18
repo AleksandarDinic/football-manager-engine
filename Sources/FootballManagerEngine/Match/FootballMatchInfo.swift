@@ -68,47 +68,23 @@ extension FootballMatchInfo {
         case .coinToss:
             return CoinToss(at: time, winner: playFirst)
 
-        case .startTime:
-            return StartTime(at: time)
+        case let .time(type):
+            return TimeRecord(at: time, type: type)
 
         case let .kickOff(type):
             return makeKickOff(type)
 
-        case .dropBall:
-            return DropBall(at: time)
+        case let .restart(type):
+            return Restart(at: time, type: type)
 
-        case .throwIn:
-            return ThrowIn(at: time)
+        case let .offense(type, player, action):
+            return Offense(at: time, type: type, player: player, disciplinaryAction: action)
 
-        case .goalKick:
-            return GoalKick(at: time)
-
-        case .cornerKick:
-            return CornerKick(at: time)
-
-        case let .freeKick(type):
-            return FreeKick(at: time, type: type)
-
-        case .penaltyKick:
-            return PenaltyKick(at: time)
-
-        case let .offside(player):
-            return Offside(at: time, player: player)
-
-        case let.foul(player, action):
-            return Foul(at: time, player: player, disciplinaryAction: action)
-
-        case let .misconduct(player, action):
-            return Misconduct(at: time, player: player, disciplinaryAction: action)
+        case let .stop(type, player: player):
+            return Stop(at: time, type: type, player: player)
 
         case .matchResult:
             return MatchResult(at: time, homeStats: homeStats, awayStats: awayStats)
-
-        case .halfTime:
-            return HalfTime(at: time)
-
-        case .fullTime:
-            return FullTime(at: time)
 
         case .matchOutcome:
             return MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)

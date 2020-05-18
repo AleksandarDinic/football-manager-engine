@@ -1,22 +1,21 @@
 //
-//  Offside.swift
+//  Restart.swift
 //  FootballManagerEngine
 //
-//  Created by Aleksandar Dinic on 17/05/2020.
+//  Created by Aleksandar Dinic on 18/05/2020.
 //  Copyright © 2020 Aleksandar Dinic. All rights reserved.
 //
 
 import Foundation
 
-struct Offside: Recordable {
+struct Restart: Recordable {
 
     var time: FootballMatchTime
     var recordType: RecordType
 
-    init(at time: FootballMatchTime, player: FootballPlayer) {
+    init(at time: FootballMatchTime, type: RestartType) {
         self.time = time
-        self.recordType = .offside(player)
+        self.recordType = .restart(type)
     }
 
 }
-

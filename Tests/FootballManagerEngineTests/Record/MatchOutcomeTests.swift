@@ -32,9 +32,8 @@ final class MatchOutcomeTests: XCTestCase {
     func testRecord() {
         // Given
         let time = FootballMatchTime()
-        let recordType = RecordType.matchOutcome
-        let matchOutcomeType = MatchOutcome.MatchOutcomeType.drawn
-        let givenRecord = "\(time)': \(recordType) \(matchOutcomeType)"
+        let matchOutcomeType = MatchOutcomeType.drawn
+        let givenRecord = "\(time)': \(matchOutcomeType)"
         let sut = MatchOutcome(at: time, homeStats: homeStats, awayStats: awayStats)
 
         // When

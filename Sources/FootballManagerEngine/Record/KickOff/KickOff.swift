@@ -29,9 +29,3 @@ struct KickOff: Recordable {
     }
 
 }
-
-public enum KickOffType {
-    case initial
-    case secondHalf
-    case afterGoalScored
-}

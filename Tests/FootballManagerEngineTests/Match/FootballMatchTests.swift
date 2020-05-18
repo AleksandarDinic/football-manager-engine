@@ -48,12 +48,13 @@ final class FootballMatchTests: XCTestCase {
 
     func testStartTime() {
         // Given
-        var startTime: StartTime?
+        var startTime: TimeRecord?
         let promise = expectation(description: #function)
 
         // When
         sut.start { record in
-            if let time = record as? StartTime {
+            if let time = record as? TimeRecord,
+                time.recordType == .time(.startTime) {
                 startTime = time
                 promise.fulfill()
             }
@@ -67,13 +68,14 @@ final class FootballMatchTests: XCTestCase {
 
     func testStartTimeBeforeKickOff() {
         // Given
-        var startTime: StartTime?
+        var startTime: TimeRecord?
         var kickOff: KickOff?
         let promise = expectation(description: #function)
 
         // When
         sut.start { record in
-            if let timeRecord = record as? StartTime {
+            if let timeRecord = record as? TimeRecord,
+                timeRecord.recordType == .time(.startTime) {
                 startTime = timeRecord
 
             } else if let kickRecord = record as? KickOff,
@@ -94,16 +96,18 @@ final class FootballMatchTests: XCTestCase {
 
     func testStartTimeBeforeHalfTime() {
         // Given
-        var startTime: StartTime?
-        var halfTime: HalfTime?
+        var startTime: TimeRecord?
+        var halfTime: TimeRecord?
         let promise = expectation(description: #function)
 
         // When
         sut.start { record in
-            if let timeRecord = record as? StartTime {
+            if let timeRecord = record as? TimeRecord,
+                timeRecord.recordType == .time(.startTime) {
                 startTime = timeRecord
 
-            } else if let timeRecord = record as? HalfTime,
+            } else if let timeRecord = record as? TimeRecord,
+                timeRecord.recordType == .time(.halfTime),
                 startTime != nil {
                 halfTime = timeRecord
 
@@ -120,13 +124,14 @@ final class FootballMatchTests: XCTestCase {
 
     func testHalfTimeBeforeKickOff() {
         // Given
-        var halfTime: HalfTime?
+        var halfTime: TimeRecord?
         var kickOff: KickOff?
         let promise = expectation(description: #function)
 
         // When
         sut.start { record in
-            if let timeRecord = record as? HalfTime {
+            if let timeRecord = record as? TimeRecord,
+                timeRecord.recordType == .time(.halfTime) {
                 halfTime = timeRecord
 
             } else if let kickRecord = record as? KickOff,
@@ -147,12 +152,13 @@ final class FootballMatchTests: XCTestCase {
 
     func testFullTime() {
         // Given
-        var fullTime: FullTime?
+        var fullTime: TimeRecord?
         let promise = expectation(description: #function)
 
         // When
         sut.start { record in
-            if let time = record as? FullTime {
+            if let time = record as? TimeRecord,
+                time.recordType == .time(.fullTime) {
                 fullTime = time
                 promise.fulfill()
             }
